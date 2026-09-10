@@ -11,46 +11,50 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
 public class ClinicaController {
 
     @Autowired
     private ClinicaService clinicaService;
 
+    @GetMapping("/")
+    public String inicio() {
+        return "Bienvenido al sistema Sur Salud - API Citas Médicas activa y funcionando correctamente.";
+    }
+
     // --- Endpoints de Pacientes ---
-    @GetMapping("/pacientes")
+    @GetMapping("/api/pacientes")
     public List<Paciente> consultarPacientes() {
         return clinicaService.listarPacientes();
     }
 
-    @PostMapping("/pacientes")
+    @PostMapping("/api/pacientes")
     public Paciente crearPaciente(@RequestBody Paciente paciente) {
         return clinicaService.guardarPaciente(paciente);
     }
 
     // --- Endpoints de Médicos ---
-    @GetMapping("/medicos")
+    @GetMapping("/api/medicos")
     public List<Medico> consultarMedicos() {
         return clinicaService.listarMedicos();
     }
 
-    @PostMapping("/medicos")
+    @PostMapping("/api/medicos")
     public Medico crearMedico(@RequestBody Medico medico) {
         return clinicaService.guardarMedico(medico);
     }
 
     // --- Endpoints de Citas ---
-    @GetMapping("/citas")
+    @GetMapping("/api/citas")
     public List<Cita> consultarCitas() {
         return clinicaService.listarCitas();
     }
 
-    @PostMapping("/citas")
+    @PostMapping("/api/citas")
     public Cita crearCita(@RequestBody Cita cita) {
         return clinicaService.crearCita(cita);
     }
 
-    @DeleteMapping("/citas/{id}")
+    @DeleteMapping("/api/citas/{id}")
     public ResponseEntity<String> cancelarCita(@PathVariable Long id) {
         boolean cancelada = clinicaService.cancelarCita(id);
         if (cancelada) {
